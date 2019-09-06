@@ -9,8 +9,8 @@ const App = () => {
   return (
     <div>
       <h1>Programming anecdotes</h1>
-      <Filter />
       <Notification />
+      <Filter />
       <AnecdoteList />
       <AnecdoteForm /> 
     </div>

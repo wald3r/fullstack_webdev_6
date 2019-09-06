@@ -8,7 +8,6 @@ const Filter = (props) => {
 
     const newFilter = (event) => {
         event.preventDefault()
-        console.log(event.target.value)
         props.filterList(event.target.value)
     }
 

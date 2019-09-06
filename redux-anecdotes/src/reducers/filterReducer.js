@@ -8,8 +8,6 @@ export const filterList = (filter) => {
 
 
 const filterReducer = (state = 'ALL', action) => {    
-    console.log(action.filter)
-    console.log(action.type)
     switch(action.type){
         case 'SET_FILTER':
             return action.filter
