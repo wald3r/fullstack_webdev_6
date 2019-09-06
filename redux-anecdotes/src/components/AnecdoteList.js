@@ -2,13 +2,17 @@ import React from 'react'
 import { newVote } from '../reducers/anecdoteReducer'
 import { voteMessage, removeMessage } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
+import anecdoteService from '../services/anecdotes'
+
 
 const AnecdoteList = (props) => {
 
 
-    const vote = (id) => {
-        props.newVote(id)
-        props.voteMessage(id)
+    const vote = async (anecdote) => {
+        anecdote.votes += 1
+        const newAnecdote = await anecdoteService.update(anecdote)
+        props.newVote(newAnecdote)
+        props.voteMessage(newAnecdote.content)
         setTimeout(() => { props.removeMessage()}, 3000)
     }
 
@@ -22,7 +26,7 @@ const AnecdoteList = (props) => {
                         </div>
                         <div>
                             has {anecdote.votes}
-                            <button onClick={() => vote(anecdote.id)}>vote</button>
+                            <button onClick={() => vote(anecdote)}>vote</button>
                         </div>
                     </div>
                 )}

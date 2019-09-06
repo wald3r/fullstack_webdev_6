@@ -2,14 +2,14 @@
 export const voteMessage = (value) => {
     return {
         type: 'VOTE',
-        data: { value: value }
+        value
     }
 }
 
 export const createMessage = (value) => {
     return {
         type: 'CREATE',
-        data: { value: value }
+        value
     }
 }
 
@@ -19,16 +19,16 @@ export const removeMessage = () => {
     }
 }
 
-const notificationReducer = (state = '', action) => {    
+const notificationReducer = (state = '', action) => {   
     switch(action.type){
         case 'VOTE':
-            return `Voted for ${action.data.value}`
+            return `Voted for ${action.value}`
         case 'CREATE':
-            return `${action.data.value} created`
+            return `${action.value} created`
         case 'REMOVE':
             return ''
         default:
-            return ''
+            return state
     }
     
 }
