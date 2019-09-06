@@ -17,7 +17,7 @@ const asObject = (anecdote) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject)
+export const initialState = anecdotesAtStart.map(asObject)
 
 const incrementVote = (state, a) => {
     state[a].votes += 1
@@ -44,9 +44,7 @@ export const newAnecdote = (content) => {
           }
 }
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
+const anecdoteReducer = (state = initialState, action) => {
   
   if(action.type === 'NEWANECDOTE'){
     return (state.concat(action.data)).sort((a,b) => b.votes-a.votes)
@@ -61,4 +59,4 @@ const reducer = (state = initialState, action) => {
   return state
 }
 
-export default reducer
+export default anecdoteReducer
