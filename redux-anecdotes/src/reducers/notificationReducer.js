@@ -1,19 +1,18 @@
+export function setNotification(value, time) {
+    return async dispatch => {
+      dispatch(setMessage(value))
+      setTimeout(() => {dispatch(removeMessage())}, time)
+    }
+}
 
-export const voteMessage = (value) => {
+const setMessage = (value) => {
     return {
-        type: 'VOTE',
+        type:'NOTIFICATION',
         value
     }
 }
 
-export const createMessage = (value) => {
-    return {
-        type: 'CREATE',
-        value
-    }
-}
-
-export const removeMessage = () => {
+const removeMessage = () => {
     return {
         type: 'REMOVE'
     }
@@ -21,8 +20,8 @@ export const removeMessage = () => {
 
 const notificationReducer = (state = '', action) => {   
     switch(action.type){
-        case 'VOTE':
-            return `Voted for ${action.value}`
+        case 'NOTIFICATION':
+            return action.value
         case 'CREATE':
             return `${action.value} created`
         case 'REMOVE':
@@ -34,3 +33,4 @@ const notificationReducer = (state = '', action) => {
 }
   
   export default notificationReducer
+

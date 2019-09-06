@@ -1,23 +1,36 @@
 
-export const initializesAnecdotes = (anecdotes) => {
-  return {
-    type: 'INITANECDOTES',
-    data: anecdotes
+import anecdoteService from '../services/anecdotes'
+
+
+export const initializesAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INITANECDOTES',
+      data: anecdotes   
+    })
   }
 }
 
 export const newVote = (anecdote) => {
-  return {
-          type: 'INCREMENTANECDOTE',
-          anecdote,
+  return async dispatch => {
+    anecdote.votes += 1 
+    const data = await anecdoteService.update(anecdote)
+    dispatch({
+        type: 'INCREMENTANECDOTE',
+        data,
+    })
   }
 }
 
 
-export const newAnecdote = (data) => {
-  return { 
-          type: 'NEWANECDOTE',
-          data,
+export const newAnecdote = (content) => {
+  return async dispatch => {
+    const data = await anecdoteService.createNew(content)
+    dispatch({
+      type: 'NEWANECDOTE',
+      data,
+    })
   }
 }
 
@@ -28,8 +41,8 @@ const anecdoteReducer = (state = [], action) => {
     case 'INITANECDOTES':
         return action.data 
     case 'INCREMENTANECDOTE':
-          const newState = state.filter(s => s.id !== action.anecdote.id)
-          return newState.concat(action.anecdote).sort((a,b) => b.votes-a.votes)
+          const newState = state.filter(s => s.id !== action.data.id)
+          return newState.concat(action.data).sort((a,b) => b.votes-a.votes)
     default:
       return state
     }
