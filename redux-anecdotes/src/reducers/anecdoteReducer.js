@@ -39,12 +39,12 @@ const anecdoteReducer = (state = [], action) => {
     case 'NEWANECDOTE':
         return [...state, action.data].sort((a,b) => b.votes-a.votes)
     case 'INITANECDOTES':
-        return action.data 
+        return action.data.sort((a,b) => b.votes-a.votes)
     case 'INCREMENTANECDOTE':
           const newState = state.filter(s => s.id !== action.data.id)
           return newState.concat(action.data).sort((a,b) => b.votes-a.votes)
     default:
-      return state
+      return state.sort((a,b) => b.votes-a.votes)
     }
 }
   
